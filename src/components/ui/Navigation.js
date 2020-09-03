@@ -47,7 +47,7 @@ export const Navigation = () => {
 
             <div className="navbar-end">
                 <div className="navbar-item">
-                    <h2 className="navbar-item">{username}</h2>
+                    <Link to="/profile" className="navbar-item">{username}</Link>
                     <div className="buttons">
                         <button 
                             className="button is-danger"

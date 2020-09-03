@@ -100,7 +100,7 @@ export const Register = ({history}) => {
                         >
                             Send
                         </button>
-                        <p class="help">¿Tienes cuenta? <Link to="/auth/login">Login</Link></p>
+                        <p className="help">¿Tienes cuenta? <Link to="/auth/login">Login</Link></p>
                     </form>
                 </div>
             </div>

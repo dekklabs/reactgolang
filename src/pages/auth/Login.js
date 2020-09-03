@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from '../../hooks/useForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions/auth'
+import { Link } from 'react-router-dom'
 
 export const Login = () => {
 
@@ -79,6 +80,7 @@ export const Login = () => {
                         >
                             Send
                         </button>
+                        <p className="help mt-2">¿No tienes cuenta?  <Link to="/auth/register">Registrate</Link></p>
                     </form>
                 </div>
             </div>
