@@ -1,20 +1,7 @@
-export const loadState = () => {
-    try {
-        const serializeData = sessionStorage.getItem("state")
-        if (serializeData === null) {
-            return undefined
-        }
-        return JSON.parse(serializeData)
-    } catch (error) {
-        return undefined
-    }
-}
+import jwt_decode from 'jwt-decode'
 
-export const saveSate = (state) => {
-    try {
-        let serializedDate = JSON.stringify(state)
-        sessionStorage.setItem('state', serializedDate)
-    } catch (error) {
-        //
-    }
+export const parseToken = (token) => {
+    const data = jwt_decode(token)
+
+    return data
 }

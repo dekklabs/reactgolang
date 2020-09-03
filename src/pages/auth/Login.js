@@ -1,19 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useForm } from '../../hooks/useForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions/auth'
 
-export const Login = ({history}) => {
+export const Login = () => {
 
     const dispatch = useDispatch()
 
-    const { error, message, token } = useSelector(state => state.auth)
-
-    useEffect(() => {
-        if( token.length > 0 ) {
-            history.push("/dashboard")
-        }
-    }, [token])
+    const { error, message } = useSelector(state => state.auth)
 
     const [formValue, handleInputChange] = useForm({
         username: 'dekk',

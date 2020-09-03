@@ -1,31 +1,41 @@
-import React from 'react'
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { logOutType } from '../../actions/auth';
+import { parseToken } from '../../helpers/getToken';
 
 export const Navigation = () => {
 
-    const history = useHistory()
+    const { token } = useSelector(state => state.auth)
 
-    // const state = useSelector(state => state.auth)
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        if (token) {
+            const userData = parseToken(token)
+            setUser(userData)
+        }
+    }, [token])
+    
+    const { username } = user
+
     const dispatch = useDispatch()
 
     const handleOnLogout = () => {
         dispatch(logOutType())
-        history.push("/auth/login")
     }
 
     return (
         <header className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <Link className="navbar-item" to="/">
-                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="logo" />
                 </Link>
-                <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <div role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
-                </a>
+                </div>
             </div>
 
             <div id="navbarBasicExample" className="navbar-menu">
@@ -37,6 +47,7 @@ export const Navigation = () => {
 
             <div className="navbar-end">
                 <div className="navbar-item">
+                    <h2 className="navbar-item">{username}</h2>
                     <div className="buttons">
                         <button 
                             className="button is-danger"

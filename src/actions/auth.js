@@ -1,6 +1,5 @@
-import { API_URL, TOKEN } from "../helpers/constants"
+import { API_URL } from "../helpers/constants"
 import { types } from "../types/types"
-import { saveSate } from "../helpers/getToken"
 
 export const register = (user) => {
     const url = API_URL + "/register"
@@ -38,10 +37,9 @@ export const login = (user) => {
     return (dispatch) => {
         fetch(url, params)
             .then(res => res.json())
-            .then(({error, message, token}) => {
+            .then(({error, message, status, token}) => {
                 if( !error ) {
-                    dispatch(loginType(error, message, token))
-                    // saveSate(token)
+                    dispatch(loginType(error, message, status, token))
                 }
             })
             .catch(err => {
@@ -50,11 +48,12 @@ export const login = (user) => {
     }
 }
 
-export const loginType = (error, message, token) => ({
+export const loginType = (error, message, status, token) => ({
     type: types.login,
     payload: {
         error,
         message,
+        status,
         token
     }
 })
