@@ -43,6 +43,7 @@ export const login = (user) => {
                 if( !error ) {
                     dispatch(loginType(error, message, status, token))
                     dispatch(uiFinishLoading())
+                    dispatch(logged())
                 }
             })
             .catch(err => {
@@ -63,4 +64,8 @@ export const loginType = (error, message, status, token) => ({
 
 export const logOutType = () => ({
     type : types.logout
+})
+
+export const logged = () => ({
+    type: types.logged
 })
