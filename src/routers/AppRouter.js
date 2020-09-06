@@ -14,8 +14,6 @@ export const AppRouter = () => {
 
     const { status } = useSelector(state => state.auth)
 
-    console.log(isLoggedIn)
-
     return (
         <Router>
             <div>
