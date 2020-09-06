@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { 
     BrowserRouter as Router,
     Switch
@@ -12,17 +12,7 @@ import { PrivateRoutes } from './PrivateRoutes'
 
 export const AppRouter = () => {
 
-    const auth = useSelector(state => state.auth)
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-    useEffect(() => {
-        if( auth.status ) {
-            setIsLoggedIn(auth.status)
-        }else {
-            setIsLoggedIn(auth.status)
-        }
-    }, [auth, setIsLoggedIn])
+    const { status } = useSelector(state => state.auth)
 
     console.log(isLoggedIn)
 
@@ -33,20 +23,20 @@ export const AppRouter = () => {
                     <PublicRoutes
                         exact 
                         path="/auth/login"
-                        isLoggedIn={isLoggedIn}
+                        isLoggedIn={status}
                         component={Login}
                     />
 
                     <PublicRoutes
                         exact 
                         path="/auth/register" 
-                        isLoggedIn={isLoggedIn}
+                        isLoggedIn={status}
                         component={Register}
                     />
 
                     <PrivateRoutes
-                        isLoggedIn={isLoggedIn}
                         path="/"
+                        isLoggedIn={status}
                         component={DashboardRouter}
                     />
                 </Switch>
