@@ -48,8 +48,6 @@ export const AppRouter = () => {
                         isLoggedIn={isLoggedIn}
                         component={DashboardRouter}
                     />
-
-                    <Redirect to="/auth/login" />
                 </Switch>
             </div>
         </Router>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { logOutType } from '../../actions/auth';
 import { parseToken } from '../../helpers/getToken';
+import avatar from '../../assets/img/noimage.png'
 
 export const Navigation = () => {
 
@@ -17,7 +18,7 @@ export const Navigation = () => {
         }
     }, [token])
     
-    const { username } = user
+    const { image, username } = user
 
     const dispatch = useDispatch()
 
@@ -47,7 +48,10 @@ export const Navigation = () => {
 
             <div className="navbar-end">
                 <div className="navbar-item">
-                    <Link to="/profile" className="navbar-item">{username}</Link>
+                    <Link to="/profile" className="navbar-item avatar">
+                        {username}
+                        <img className="is-rounded" width="30" height="30" src={ image ? image : avatar} alt={username} />
+                    </Link>
                     <div className="buttons">
                         <button 
                             className="button is-danger"

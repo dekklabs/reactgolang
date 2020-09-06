@@ -1,5 +1,6 @@
 import { API_URL } from "../helpers/constants"
 import { types } from "../types/types"
+import { uiStartLoading, uiFinishLoading } from "./ui"
 
 export const register = (user) => {
     const url = API_URL + "/register"
@@ -35,11 +36,13 @@ export const login = (user) => {
     }
 
     return (dispatch) => {
+        dispatch(uiStartLoading())
         fetch(url, params)
             .then(res => res.json())
             .then(({error, message, status, token}) => {
                 if( !error ) {
                     dispatch(loginType(error, message, status, token))
+                    dispatch(uiFinishLoading())
                 }
             })
             .catch(err => {

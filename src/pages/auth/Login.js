@@ -9,6 +9,7 @@ export const Login = () => {
     const dispatch = useDispatch()
 
     const { error, message } = useSelector(state => state.auth)
+    const { loading } = useSelector(state => state.ui)
 
     const [formValue, handleInputChange] = useForm({
         username: 'dekk',
@@ -78,7 +79,11 @@ export const Login = () => {
                             className="button is-primary"
                             type="submit"
                         >
-                            Send
+                            {
+                                loading 
+                                ? <span>Loading... :D</span>
+                                : <span>Send</span>
+                            }
                         </button>
                         <p className="help mt-2">¿No tienes cuenta?  <Link to="/auth/register">Registrate</Link></p>
                     </form>
