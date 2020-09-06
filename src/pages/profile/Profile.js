@@ -8,10 +8,14 @@ export const Profile = () => {
 
     const { token } = useSelector(state => state.auth)
     
-    const usuario = parseToken(token)
+    let usuario = {}
+
+    if (token) {
+        usuario = parseToken(token)
+    }
 
     const [formValue, handleInputChange] = useForm({
-        id: usuario.id,
+        id: usuario?.id,
         nombre : usuario?.nombre,
         apellido: usuario?.apellido,
         username : usuario?.username,
@@ -24,12 +28,6 @@ export const Profile = () => {
         e.preventDefault();
         
         updateUser(formValue)
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
     }
 
     return (

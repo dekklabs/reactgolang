@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { 
     BrowserRouter as Router,
-    Switch,
-    Redirect,
+    Switch
 } from 'react-router-dom'
 import { Login } from '../pages/auth/Login'
 import { DashboardRouter } from './DashboardRouter'
@@ -44,8 +43,8 @@ export const AppRouter = () => {
                     />
 
                     <PrivateRoutes
-                        path="/"
                         isLoggedIn={isLoggedIn}
+                        path="/"
                         component={DashboardRouter}
                     />
                 </Switch>

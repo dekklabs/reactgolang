@@ -8,7 +8,7 @@ import { Footer } from '../components/footer/Footer'
 
 export const DashboardRouter = () => {
     return (
-        <div className=''>
+        <div>
             <Navigation />
             <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
