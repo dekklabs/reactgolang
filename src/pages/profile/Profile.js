@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import {parseToken} from '../../helpers/getToken'
 import { useForm } from '../../hooks/useForm'
-import { updateUser } from '../../actions/user'
+import { updateUser, getProfile } from '../../actions/user'
 
 export const Profile = () => {
 

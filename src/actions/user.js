@@ -25,3 +25,28 @@ export const updateUser = (user, token) => {
         console.log(error)
     }
 }
+
+export const getProfile = (token) => {
+    try {
+        const url = `${API_URL}/profile`
+
+        const parans = {
+            method: "GET",
+            headers : {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer${token}`
+            },
+        }
+
+        return fetch(url, parans)
+            .then(res => res.json())
+            .then(result => {
+                console.log(result)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    } catch (error) {
+        console.log(error)
+    }
+}

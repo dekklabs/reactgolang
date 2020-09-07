@@ -43,6 +43,7 @@ export const Navigation = () => {
                 <div className="navbar-start">
                     <Link to="/dashboard" className="navbar-item">Home</Link>
                     <Link to="/contact" className="navbar-item">Documentation</Link>
+                    <Link to="/productos" className="navbar-item">Productos</Link>
                 </div>
             </div>
 
