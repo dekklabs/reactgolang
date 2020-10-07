@@ -1,0 +1,43 @@
+:root {
+    --border1: #dddddd;
+    --border2: #222;
+    --bgmodal: #f2efef;
+}
+
+.profile .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    top: -40px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border: 3px solid var(--border1);
+}
+
+.profile .text-center {
+    text-align: center;
+}
+
+.profile .card {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.profile .card-body {
+    padding: 40px;
+    position: relative;
+}
+
+.profile .cover {
+    height: 150px;
+    background-color: var(--border2);
+    background-size: cover;
+}
+
+.modal .modal-content {
+    background-color: var(--bgmodal);
+    padding: 30px;
+    border-radius: 5px;
+}

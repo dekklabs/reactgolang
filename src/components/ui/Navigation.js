@@ -1,36 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { logOutType } from '../../actions/auth';
-import { parseToken } from '../../helpers/getToken';
-import avatar from '../../assets/img/noimage.png'
+import noAvatarNoFound from '../../assets/img/noimage.png'
+import { cleanUser } from '../../actions/user';
+import { API_URL } from "../../helpers/constants";
+import { getImagen } from '../../helpers/getAvatar';
 
 export const Navigation = () => {
 
-    const { token } = useSelector(state => state.auth)
-
-    const [user, setUser] = useState({})
-
-    useEffect(() => {
-        if (token) {
-            const userData = parseToken(token)
-            setUser(userData)
-        }
-    }, [token])
-    
-    const { image, username } = user
-
     const dispatch = useDispatch()
+
+    const {user : {id, username, image}} = useSelector(state => state.user)
+
+    const imagen = image !== undefined ? `${API_URL}/get-avatar?id=${id}` : noAvatarNoFound
 
     const handleOnLogout = () => {
         dispatch(logOutType())
+        dispatch(cleanUser())
     }
 
     return (
         <header className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <Link className="navbar-item" to="/">
-                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="logo" />
+                    Home
                 </Link>
                 <div role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
@@ -41,7 +35,7 @@ export const Navigation = () => {
 
             <div id="navbarBasicExample" className="navbar-menu">
                 <div className="navbar-start">
-                    <Link to="/dashboard" className="navbar-item">Home</Link>
+                    <Link to="/dashboard" className="navbar-item">Inicio</Link>
                     <Link to="/contact" className="navbar-item">Documentation</Link>
                     <Link to="/productos" className="navbar-item">Productos</Link>
                 </div>
@@ -51,7 +45,8 @@ export const Navigation = () => {
                 <div className="navbar-item">
                     <Link to="/profile" className="navbar-item avatar">
                         {username}
-                        <img className="is-rounded" width="30" height="30" src={ image ? image : avatar} alt={username} />
+                        {/* <img className="is-rounded" width="30" height="30" src={ image ? image : avatar} alt={username} /> */}
+                        <img className="is-rounded" width="30" height="30" src={ getImagen(image, id) } alt={username} />
                     </Link>
                     <div className="buttons">
                         <button 

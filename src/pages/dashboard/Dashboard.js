@@ -1,9 +1,9 @@
 import React from 'react'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export const Dashboard = () => {
 
-    // const state = useSelector(state => state.auth)
+    const {user : {nombre}} = useSelector(state => state.user)
 
     return (
         <div>
@@ -14,7 +14,7 @@ export const Dashboard = () => {
                         Dashboard
                     </h1>
                     <h2 className="subtitle">
-                        Hola Dekk
+                        Hola {nombre}
                     </h2>
                     </div>
                 </div>

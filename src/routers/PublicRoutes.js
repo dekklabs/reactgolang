@@ -11,7 +11,7 @@ export const PublicRoutes = ({
         <Route
             { ...rest }
             component = {(props) => (
-                (!isLoggedIn)
+                (isLoggedIn === "")
                 ? <Component {...props} />
                 : <Redirect to="/dashboard" />
             )}
@@ -20,6 +20,6 @@ export const PublicRoutes = ({
 }
 
 PublicRoutes.propTypes = {
-    isLoggedIn : PropTypes.bool.isRequired,
+    isLoggedIn : PropTypes.string.isRequired,
     component : PropTypes.func.isRequired
 }

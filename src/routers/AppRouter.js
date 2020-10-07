@@ -12,7 +12,7 @@ import { PrivateRoutes } from './PrivateRoutes'
 
 export const AppRouter = () => {
 
-    const { status } = useSelector(state => state.auth)
+    const { message } = useSelector(state => state.auth)
 
     return (
         <Router>
@@ -21,20 +21,20 @@ export const AppRouter = () => {
                     <PublicRoutes
                         exact 
                         path="/auth/login"
-                        isLoggedIn={status}
+                        isLoggedIn={message}
                         component={Login}
                     />
 
                     <PublicRoutes
                         exact 
                         path="/auth/register" 
-                        isLoggedIn={status}
+                        isLoggedIn={message}
                         component={Register}
                     />
 
                     <PrivateRoutes
                         path="/"
-                        isLoggedIn={status}
+                        isLoggedIn={message}
                         component={DashboardRouter}
                     />
                 </Switch>
