@@ -11,7 +11,7 @@ export const PrivateRoutes = ({
         <Route
             { ...rest }
             component = {(props) => (
-                (isLoggedIn)
+                (isLoggedIn === "ok")
                 ? <Component {...props} />
                 : <Redirect to="/auth/login" />
             )}
@@ -20,6 +20,6 @@ export const PrivateRoutes = ({
 }
 
 PrivateRoutes.propTypes = {
-    isLoggedIn : PropTypes.bool.isRequired,
+    isLoggedIn : PropTypes.string.isRequired,
     component : PropTypes.func.isRequired
 }

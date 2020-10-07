@@ -1,6 +1,9 @@
+import jwt_decode from 'jwt-decode'
+
 import { API_URL } from "../helpers/constants"
 import { types } from "../types/types"
 import { uiStartLoading, uiFinishLoading } from "./ui"
+import { getProfile } from './user'
 
 export const register = (user) => {
     const url = API_URL + "/register"
@@ -23,27 +26,26 @@ export const register = (user) => {
         })
 }
 
-export const login = (user) => {
-
-    const url = API_URL + "/login"
-
-    const params = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    }
-
+export const login = (user) => {    
     return (dispatch) => {
+        const url = API_URL + "/login"
+    
+        const params = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        }
         dispatch(uiStartLoading())
         fetch(url, params)
             .then(res => res.json())
-            .then(({error, message, status, token}) => {
+            .then(({error, message, token}) => {
                 if( !error ) {
-                    dispatch(loginType(error, message, status, token))
+                    dispatch(loginType(error, message, token))
                     dispatch(uiFinishLoading())
                     dispatch(logged())
+                    dispatch(getProfile(token))
                 }
             })
             .catch(err => {
@@ -52,19 +54,25 @@ export const login = (user) => {
     }
 }
 
-export const loginType = (error, message, status, token) => ({
+export const loginType = (error, message, token) => ({
     type: types.login,
     payload: {
         error,
         message,
-        status,
         token
     }
 })
 
+export const parseUser = (token) => {
+    const data = jwt_decode(token)
+
+    return data
+}
+
 export const logOutType = () => ({
     type : types.logout
 })
+
 
 export const logged = () => ({
     type: types.logged

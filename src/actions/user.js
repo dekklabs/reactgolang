@@ -1,52 +1,73 @@
 import { API_URL } from "../helpers/constants"
+import { parseToken } from "../helpers/getToken"
+import { types } from "../types/types"
 
-export const updateUser = (user, token) => {
-    try {
-        const url = `${API_URL}/update-user`
-        
-        const parans = {
-            method: "PUT",
-            headers : {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer${token}`
-            },
-            body: JSON.stringify(user)
-        }
+export const updateUser = (user) => {
+    return async ( dispatch, getState ) => {
+        try {
+            const { token } = getState().auth
     
-        return fetch(url, parans)
-            .then(res => res.json())
-            .then(result => {
-                return result
-            })
-            .catch(err => {
-                return err
-            })
-    } catch (error) {
-        console.log(error)
+            const url = `${API_URL}/update-user`
+    
+            const parans = {
+                method: "PUT",
+                headers : {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer${token}`
+                },
+                body: JSON.stringify(user)
+            }
+            await fetch(url, parans)
+            dispatch(getProfile(token))
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
 export const getProfile = (token) => {
-    try {
-        const url = `${API_URL}/profile`
+    return async (dispatch) => {        
+        try {
+            const { id } = parseToken(token)
 
-        const parans = {
-            method: "GET",
-            headers : {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer${token}`
-            },
+            if (id === 0) {
+                console.log("No id")
+            }
+    
+            const url = `${API_URL}/profile?id=${id}`
+    
+            const parans = {
+                method: "GET",
+                headers : {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer${token}`
+                },
+            }
+
+            const data = await fetch( url, parans )
+            const { error, message, user } = await data.json()
+
+            if (error) {
+                console.log("Hubo un error :,c")
+                console.log(message)
+            }
+
+            dispatch(getUser(error, message, user))
+        } catch (error) {
+            console.log(error)
         }
-
-        return fetch(url, parans)
-            .then(res => res.json())
-            .then(result => {
-                console.log(result)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    } catch (error) {
-        console.log(error)
     }
 }
+
+export const cleanUser = () => ({
+    type: types.userClean
+})
+
+const getUser = (error, message, user) => ({
+    type: types.userLoad,
+    payload: {
+        error,
+        message,
+        user
+    }
+})
